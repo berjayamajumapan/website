@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title>Insert Image</title>
+	<script language="JavaScript">
+	function trim(strText) { 
+    	while (strText.substring(0,1) == ' ') 
+        	strText = strText.substring(1, strText.length);
+    	while (strText.substring(strText.length-1,strText.length) == ' ')
+        	strText = strText.substring(0, strText.length-1);
+   		return strText;
+	}
+	
+	function verifystring(str, checkstr) {
+	  	for (i=0; i<str.length; i++) {
+	    	var chr = str.charAt(i);
+	   		if (checkstr.indexOf(chr) == -1) {return false;};
+	  	}
+	  	return true;
+	}
+	
+	function returnimage() { 
+		var src = trim(document.all.txtfilename.value);
+		var alt = trim(document.all.txtaltext.value);
+		var align = trim(document.all.alignment.value);
+		var border = trim(document.all.txtborder.value);
+		var height = trim(document.all.txtheight.value);
+		var width = trim(document.all.txtwidth.value);
+  		if (src == "") {alert("Image source is required!!!"); return;}
+		if (!verifystring(border, "0123456789")) {alert("Border's value is invalid!!!"); return;}
+		if (!verifystring(height, "0123456789")) {alert("Height's value is invalid!!!"); return;}
+		if (!verifystring(width, "0123456789")) {alert("Width's value is invalid!!!"); return;}
+  		else {
+			var str = "<IMG src=\""+src+"\" alt=\""+alt+"\" align=\""+align+"\" border=\""+border+"\"";
+			if (height != "") {str += " height=\"" + height + "\"";}
+			if (width != "") {str += " width=\"" + width + "\"";}
+			str += ">";
+    		window.returnValue = str;
+    		window.close(); 
+  		}
+	}
+	</script>
+</head>
+
+<body style="margin: 5px; background: threedface; color: windowtext;" scroll=no>
+
+<table width="410" border="0">
+<tr>
+	<td><font size="-1" face="Arial">Image URL:</font></td>
+	<td><INPUT id="txtfilename" type="Text" size="35" tabindex="1" value=""></td>	
+	<td><button style="width: 5em; height: 1.8em;" onclick="returnimage();">OK</button></td>
+</tr>
+<tr>
+	<td><font size="-1" face="Arial">Alternate Text:</font></td>
+	<td><INPUT id="txtaltext" type="Text" size="35" tabindex="2" value=""></td>	
+	<td><button style="width: 5em; height: 1.8em;">Cancel</button></td>	
+</tr>
+</table>
+<br>
+<FIELDSET style="width: 330; height: 50;">
+<LEGEND><font size="-1" face="Arial">Extra Settings: </font></LEGEND>
+<br>
+<div align="center"><table width="325" border="0">
+<tr>
+	<td width="10">&nbsp;</td>
+	<td width="70"><font size="-1" face="Arial">Alignment: </font></td>
+	<td>
+		<SELECT id="alignment" tabindex="3">
+		<OPTION value="" selected> Not set </OPTION>
+		<OPTION value="left"> Left </OPTION>
+		<OPTION value="right"> Right </OPTION>
+		<OPTION value="top"> Top </OPTION>
+		<OPTION value="middle"> Middle </OPTION>
+		<OPTION value="bottom"> Bottom </OPTION>
+		</SELECT>
+	</td>	
+	<td width="50"><font size="-1" face="Arial">Height:</font></td>
+	<td><INPUT id="txtheight" type="Text" size="8" tabindex="5" value=""></td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td><font size="-1" face="Arial">Border:</font></td>
+	<td><INPUT id="txtborder" type="Text" size="8" tabindex="4" value=""></td>	
+	<td><font size="-1" face="Arial">Width:</font></td>
+	<td><INPUT id="txtwidth" type="Text" size="8" tabindex="6" value=""></td>
+</tr>
+
+</table></div>
+<br>
+</FIELDSET>
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title>Select Color</title>
+	<style type="text/css"><!--
+	.mytable     {border: 0px solid buttonface; margin: 0; padding: 0; spacing: 1px;};
+	--></style>
+
+	<script language="JavaScript">
+	function trim(strText) { 
+    	while (strText.substring(0,1) == ' ') 
+        	strText = strText.substring(1, strText.length);
+    	while (strText.substring(strText.length-1,strText.length) == ' ')
+        	strText = strText.substring(0, strText.length-1);
+   		return strText;
+	} 
+    
+	function verifycolor() {
+		string = document.all.ColorHex.value;
+		if (string == "") {alert("Invalid color!!!"); return null;};
+		
+		string = string.replace(/#/,"");
+		string = trim(string); 
+		if (string.length != 6) {alert("Invalid color!!!"); return null;};
+	  	stdstr = '0123456789abcdefABCDEF';
+	
+	  	for (i=0; i<string.length; i++) {
+	    	chr = string.charAt(i);
+	   		if (stdstr.indexOf(chr) == -1) {alert("Invalid color!!!"); return null;};
+	  	}
+	  	return string;
+	}
+	
+	function customcolor(){
+		str = verifycolor();
+		if (str != null){preview(str)};
+	}
+	
+	function preview(color) { 
+  		document.all.ColorPreview.style.backgroundColor = '#' + color;
+  		document.all.ColorHex.value = '#' + color;
+	}
+	
+	function returncolor() { 
+  		color = verifycolor();
+  		if (color == null) {alert("Invalid color!!!");}
+  		else {
+    		window.returnValue = color;
+    		window.close(); 
+  		}
+	}
+
+	function init(){
+		var count = 0;
+		var rbg = new Array("00", "33","66", "99", "cc","ff");
+		var color = "000000";
+		document.write("<table class=\"mytable\"><tr>");
+		for (var i=0; i<rbg.length; i++){
+			for (var j=0; j<3; j++){
+    			for (var k=0; k<rbg.length; k++){
+					color = rbg[j] + rbg[k] + rbg[i];
+    				document.write("<td onmouseover=\"preview('" + color + "');\" onclick=\"returncolor();\" width=8 height=11 bgcolor=" + color + "> </td>");
+					count++;
+					if ((count % 18) == 0) {
+						document.write("</tr><tr>");
+					}
+				}
+			}    		
+		}
+		for (var i=0; i<rbg.length; i++){
+			for (var j=3; j<rbg.length; j++){
+    			for (var k=0; k<rbg.length; k++){
+					color = rbg[j] + rbg[k] + rbg[i];
+    				document.write("<td onmouseover=\"preview('" + color + "');\" onclick=\"returncolor();\" width=8 height=11 bgcolor=" + color + "> </td>");
+					count++;
+					if ((count % 18) == 0) {
+						document.write("</tr><tr>");
+					}
+				}
+			}    		
+		}
+		document.write("</tr></table>");
+	}
+	</script>
+</head>
+
+<body bgcolor="#FF9966">
+<table border=0 cellspacing=0 cellpadding=4 width=100%>
+ <tr>
+  <td bgcolor="buttonface" valign=center><div style="background-color: #000000; padding: 1; height: 21px; width: 50px"><div id="ColorPreview" style="height: 100%; width: 100%"></div></div></td>
+  <td bgcolor="buttonface" valign=center><input type="text" name="ColorHex" value="#000000" size=15 style="font-size: 12px"></td>
+  <td bgcolor="buttonface" valign=center><button onclick="customcolor();"><img src="preview.bmp" alt="Preview" border="0"></button></td>
+  <td bgcolor="buttonface" valign=center><button onclick="returncolor();"><img src="check.bmp" alt="Done" border="0"></button></td>
+  <td bgcolor="buttonface" width=100%></td>
+ </tr>
+</table>
+
+<table><tr>
+	<td>
+		<table>
+			<tr><td onmouseover="preview('000000');" onclick="returncolor();" width=8 height=11 bgcolor="#FF9966"> </td></tr>
+			<tr><td onmouseover="preview('333333');" onclick="returncolor();" width=8 height=11 bgcolor="#333333"> </td></tr>
+			<tr><td onmouseover="preview('666666');" onclick="returncolor();" width=8 height=11 bgcolor="#666666"> </td></tr>
+			<tr><td onmouseover="preview('999999');" onclick="returncolor();" width=8 height=11 bgcolor="#999999"> </td></tr>
+			<tr><td onmouseover="preview('cccccc');" onclick="returncolor();" width=8 height=11 bgcolor="#cccccc"> </td></tr>
+			<tr><td onmouseover="preview('ffffff');" onclick="returncolor();" width=8 height=11 bgcolor="#ffffff"> </td></tr>
+			<tr><td onmouseover="preview('ff0000');" onclick="returncolor();" width=8 height=11 bgcolor="#ff0000"> </td></tr>
+			<tr><td onmouseover="preview('00ff00');" onclick="returncolor();" width=8 height=11 bgcolor="#00ff00"> </td></tr>
+			<tr><td onmouseover="preview('0000ff');" onclick="returncolor();" width=8 height=11 bgcolor="#0000ff"> </td></tr>
+			<tr><td onmouseover="preview('ff00ff');" onclick="returncolor();" width=8 height=11 bgcolor="#ff00ff"> </td></tr>
+			<tr><td onmouseover="preview('ffff00');" onclick="returncolor();" width=8 height=11 bgcolor="#ffff00"> </td></tr>
+			<tr><td onmouseover="preview('00ffff');" onclick="returncolor();" width=8 height=11 bgcolor="#00ffff"> </td></tr>
+		</table>
+	</td>
+	<td>
+		<script language="JavaScript">
+		init();
+		</script>
+	</td>
+</tr></table>
+
+</body>
+</html>

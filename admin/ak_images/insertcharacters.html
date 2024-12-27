@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title>Select Color</title>
+	<style type="text/css"><!--
+	.btnOver    { width: 20px; height: 20px; border: 1px solid buttonface; margin: 0; padding: 0; };
+	.btn		{ width: 20px; height: 20px; border: 1px outset; };
+	.mytable     {border: 0px solid buttonface; margin: 0; padding: 0; spacing: 1px;};
+	--></style>
+
+	<script language="JavaScript">
+	var extrachars = new Array("&lsquo;", "&rsquo;","&sbquo;", "&ldquo;", "&rdquo;","&dagger;","&Dagger;","&permil;","&lsaquo;","&rsaquo;","&spades;","&clubs;","&hearts;","&diams;","&oline;","&larr;","&uarr;","&rarr;","&darr;","&trade;");
+	
+	function trim(strText) { 
+    	while (strText.substring(0,1) == ' ') 
+        	strText = strText.substring(1, strText.length);
+    	while (strText.substring(strText.length-1,strText.length) == ' ')
+        	strText = strText.substring(0, strText.length-1);
+   		return strText;
+	}
+	
+	function preview(str) { 
+  		document.all.CharView.value = "   "+str;
+	}
+	
+	function returnchar() { 
+    		window.returnValue = trim(document.all.CharView.value);
+    		window.close(); 
+	}
+	
+	function returnnull() { 
+    		window.returnValue = "";
+    		window.close(); 
+	}
+
+	function init(){
+		var count = 0;
+		document.write("<table class=\"mytable\"><tr>");
+
+	 	for (var k=128; k<256; k++){
+			if (k!=129 && k!=141 && k!=143 && k!=144 && k!=157 && k!=160 && k!=173){
+				var chr = "&#" + k +";";
+		 		document.write("<td><button class=\"btn\" onclick=\"returnchar();\" onmouseover=\"this.className=\'btnOver\';preview(\'"+chr+"\');\" onmouseout=\"this.className=\'btn\';\">" + chr +"</button></td>");
+				count++;
+				if ((count % 12) == 0) {
+					document.write("</tr><tr>");
+				}
+			}
+		}
+		for (var i=0; i<extrachars.length; i++){
+	 		document.write("<td><button class=\"btn\" onclick=\"returnchar();\" onmouseover=\"this.className=\'btnOver\';preview(\'"+extrachars[i]+"\');\" onmouseout=\"this.className=\'btn\';\">" + extrachars[i] +"</button></td>");
+			count++;
+			if ((count % 12) == 0) {
+				document.write("</tr><tr>");
+			}
+		}
+		document.write("</tr></table>");
+	}
+	</script>
+</head>
+
+<body style="margin: 5px; background: threedface; color: windowtext;" scroll=no>
+<table><tr><td align="center">
+	<table border=0 cellspacing=0 cellpadding=4 width=100%>
+	 <tr>
+	  	<td width="50%" bgcolor="buttonface" align="right"><input type="text" name="CharView" value="" size=2 style="font-size: 28px" readonly="true"></td>
+		<td width="50%" bgcolor="buttonface" align="left"><button onclick="returnchar();"; style="width: 55px; height: 20px;"><font size="-1">OK</font></button><br>
+		<button onclick="returnnull();"  style="width: 55px; height: 20px;"><font size="-1">Cancel</font></button></td>
+	 </tr>
+	</table>
+	<table><tr>
+		<td>
+			<script language="JavaScript">
+			init();
+			</script>
+		</td>
+	</tr></table>
+</td></tr></table>
+</body>
+</html>
